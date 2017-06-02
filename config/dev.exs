@@ -21,5 +21,8 @@ config :logger, :console, format: "[$level] $message\n"
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
 
+config :guardian, Guardian,
+  secret_key: "lHm1KCzy6TEzOZhF+oM6zWjK+76iWLJHwYrS1mlVYhaxJzA0Q3ao86NoFt7LwDZe"
+
 # Configure your database
 import_config "dev.secret.exs"
