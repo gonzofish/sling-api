@@ -17,5 +17,3 @@ config :sling, Sling.Repo,
   database: "sling_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
-
-import_config "dev.secret.exs"
