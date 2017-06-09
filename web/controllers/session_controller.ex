@@ -36,32 +36,32 @@ defmodule Sling.SessionController do
         conn
         |> put_status(:ok)
         |> render("show.json", user: user, jwt: new_jwt)
-      { :error, reason } ->
+      { :error, _reason } ->
         conn
         |> put_status(:unauthorized)
         |> render("forbidden.json", error: "Not authenticated")
     end
+  end
 
-    def unauthorized(conn, _params) do
-      conn
-      |> put_status(:forbidden)
-      |> render(Sling.SessionView, "forbidden.json", error: "Not Authenticated")
+  def unauthorized(conn, _params) do
+    conn
+    |> put_status(:forbidden)
+    |> render(Sling.SessionView, "forbidden.json", error: "Not Authenticated")
+  end
+
+  defp do_authenticate(%{ "email" => email, "password" => password }) do
+    user = Repo.get_by(Sling.User, email: String.downcase(email))
+
+    case do_check_password(user, password) do
+      true -> { :ok, user }
+      _ -> :error
     end
+  end
 
-    defp do_authenticate(%{ "email" => email, "password" => password }) do
-      user = Repo.get_by(Sling.User, email: String.downcase(email))
-
-      case do_check_password(user, password) do
-        true -> { :ok, user }
-        _ -> :error
-      end
-    end
-
-    defp do_check_password(user, password) do
-      case user do
-        nil -> Comeonin.Bcrypt.dummy_checkpw()
-        _ -> Comeonin.Bcrypt.checkpw(password, user.password_hash)
-      end
+  defp do_check_password(user, password) do
+    case user do
+      nil -> Comeonin.Bcrypt.dummy_checkpw()
+      _ -> Comeonin.Bcrypt.checkpw(password, user.password_hash)
     end
   end
 end

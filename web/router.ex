@@ -7,7 +7,7 @@ defmodule Sling.Router do
 
   pipeline :browser do
     plug :accepts, ["html"]
-    plug :fetch_sessions
+    plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
@@ -31,6 +31,6 @@ defmodule Sling.Router do
     post "/sessions", SessionController, :create
     delete "/sessions", SessionController, :destroy
     post "/sessions/refresh", SessionController, :refresh
-    resources "/users", UserController, only [ :create ]
+    resources "/users", UserController, only: [ :create ]
   end
 end
