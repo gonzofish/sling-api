@@ -23,7 +23,7 @@ defmodule Sling.SessionController do
 
     conn
     |> put_status(:ok)
-    |> render("delete.json")
+    |> render("destroy.json")
   end
 
   def refresh(conn, _params) do
@@ -43,7 +43,7 @@ defmodule Sling.SessionController do
     end
   end
 
-  def unauthorized(conn, _params) do
+  def unauthenticated(conn, _params) do
     conn
     |> put_status(:forbidden)
     |> render(Sling.SessionView, "forbidden.json", error: "Not Authenticated")

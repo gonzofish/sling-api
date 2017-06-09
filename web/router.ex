@@ -1,10 +1,6 @@
 defmodule Sling.Router do
   use Sling.Web, :router
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
-
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
