@@ -10,7 +10,7 @@ defmodule Sling.RoomController do
     render(conn, "index.json", rooms: rooms)
   end
 
-  def create(conn, %{"room" => room_params}) do
+  def create(conn, room_params) do
     current_user = Guardian.Plug.current_resource(conn)
     changeset = Room.changeset(%Room{}, room_params)
 
