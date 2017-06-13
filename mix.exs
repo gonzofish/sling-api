@@ -19,7 +19,8 @@ defmodule Sling.Mixfile do
   def application do
     [mod: {Sling, []},
      applications: [:phoenix, :phoenix_pubsub, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin, :guardian]]
+                    :phoenix_ecto, :postgrex, :comeonin, :guardian,
+                    :scrivener_ecto]]
   end
 
   # Specifies which paths to compile per environment.
@@ -38,7 +39,8 @@ defmodule Sling.Mixfile do
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 3.0"},
      {:guardian, "~> 0.14.4"},
-     {:cors_plug, "~> 1.3.0"}]
+     {:cors_plug, "~> 1.3.0"},
+     {:scrivener_ecto, "~> 1.2.2"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
