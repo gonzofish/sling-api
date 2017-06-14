@@ -14,6 +14,7 @@ defmodule Sling do
       supervisor(Sling.Endpoint, []),
       # Start your own worker by calling: Sling.Worker.start_link(arg1, arg2, arg3)
       # worker(Sling.Worker, [arg1, arg2, arg3]),
+      supervisor(Sling.Presence, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

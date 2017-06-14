@@ -18,6 +18,15 @@ defmodule Sling.RoomChannel do
     end
   end
 
+  def handle_info(:after_join, socket) do
+    Sling.Presence.track(socket, socket.assigns.current_user.id, %{
+      user: Phoenix.View.render_one(socket.assigns.current_user, Sling.UserView, "user.json")
+    })
+
+    push(socket, "presence_state", Sling.Presence.list(socket))
+    { :noreply, socket }
+  end
+
   defp do_broadcast_message(socket, message) do
     message = Repo.preload(message, :user)
     rendered_message = Phoenix.View.render_one(message, Sling.MessageView, "message.json")
@@ -40,6 +49,7 @@ defmodule Sling.RoomChannel do
       room: Phoenix.View.render_one(room, Sling.RoomView, "room.json")
     }
 
+    send(self, :after_join)
     { :ok, response, assign(socket, :room, room) }
   end
 
