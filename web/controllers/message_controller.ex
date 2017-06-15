@@ -5,7 +5,7 @@ defmodule Sling.MessageController do
 
   def index(conn, params) do
     last_seen_id = params["last_seen_id"] || 0
-    room = Report.get!(Sling.Room, params["room_id"])
+    room = Repo.get!(Sling.Room, params["room_id"])
 
     page = Sling.Message
       |> where([message], message.room_id == ^room.id)
