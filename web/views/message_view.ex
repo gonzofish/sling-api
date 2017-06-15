@@ -1,6 +1,13 @@
 defmodule Sling.MessageView do
   use Sling.Web, :view
 
+  def render("index.json", %{ message: message, pagination: pagination }) do
+    %{
+      data: render_many(messages, Sling.MessageView, "message.json"),
+      pagination: pagination
+    }
+  end
+
   def render("message.json", %{ message: message }) do
     %{
       id: message.id,
